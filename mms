@@ -3,7 +3,7 @@
 function mms
 {
     source="./$1/Makefile";
-    list="./$1/list"
+    list="./$1/.list"
 
     if [[ -f "./$1/Makefile" ]]; then
         printf "\e[39m[\e[33m####\e[39m]\e[36m cleanning files\e[39m\n"
