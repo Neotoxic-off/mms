@@ -25,8 +25,8 @@ function mms
     done < "$list"
     echo "	@ar rc libmy.a *.o" >> $source
     echo "clean:" >> $source
-    echo "	@echo \"\e[39m[\e[33m****\e[39m]\e[36m\"" >> $source
-    echo "	@find -name \"*.c\"" >> $source
+    echo "	@echo \"\e[39m[\e[33m####\e[39m]\e[36mcleanning *.o\e[39m\"" >> $source
+    echo "	@find -name \"*.o\" -delete -o -name -delete" >> $source
 
     if [[ -f "./$1/Makefile" ]]; then
         printf "\e[39m[\e[32m OK \e[39m]\e[36m all done\e[39m\n"
