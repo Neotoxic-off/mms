@@ -21,7 +21,7 @@ function mms
     while IFS= read -r line
     do
         echo "	@gcc -c $line -g -I ../../include/" >> $source
-        echo "	@echo \"\e[39m[\e[32mDONE\e[39m]\e[36m $line\e[39m\"" >> $source
+        echo "	@echo \"\e[39m[\e[32mDONE\e[39m] \e[33mcompiling: \e[36m $line\e[39m\"" >> $source
     done < "$list"
     echo "	@ar rc libmy.a *.o" >> $source
     echo "clean:" >> $source
