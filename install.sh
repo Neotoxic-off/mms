@@ -3,7 +3,7 @@
 install(){
     if [[ ! -f "/usr/bin/mms" ]]; then
         printf "Status..........: Installing\n"
-        sudo cp mms /usr/bin/
+        sudo chmod +x mms && sudo cp mms /usr/bin/
         if [[ -f "/usr/bin/mms" ]]; then
             printf "Status..........: Installed\n"
         else
