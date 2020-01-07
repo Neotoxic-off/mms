@@ -16,5 +16,10 @@ HOMEMODE ==> mms <Source.c> <Output> <Lib_Path>
 LIBMODE  ==> mms <Lib_Path> <Lib_name>
 ```
 
+<img src="https://raw.githubusercontent.com/Neotoxic-off/mms/master/pics/homemode.png">
 - **Homemode**: Use it to generate a makefile on the root folder
+
+<img src="https://raw.githubusercontent.com/Neotoxic-off/mms/master/pics/libmode.png">
 - **Libmode**: Use it to generate a makefile for your lib
+
+
