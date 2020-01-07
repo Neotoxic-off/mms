@@ -11,9 +11,10 @@ chmod +x install.sh
 
 ### Usage
 ```
+Autotmatic mode detection
 HOMEMODE ==> mms <Source.c> <Output> <Lib_Path>
 LIBMODE  ==> mms <Lib_Path> <Lib_name>
 ```
 
-Homemode: Use it to generate a makefile on the root folder
-Libmode: Use it to generate a makefile for your lib
+- **Homemode**: Use it to generate a makefile on the root folder
+- **Libmode**: Use it to generate a makefile for your lib
