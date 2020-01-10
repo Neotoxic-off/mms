@@ -52,7 +52,7 @@ def homemode():
     f.write("NAME	=	" + out + "\n\n")
     f.write("all: NAME clean\nNAME:\n\n")
     f.write("	@make -C " + lib + "\n")
-    f.write("	@cp " + lib + "/include/* ./include\n")
+    f.write("	@cp " + lib + "include/* ./include\n")
     f.write("	@gcc -o $(NAME) $(SRC) " + lib + "*.a -g\n")
     f.write("clean:\n\n")
     f.write("	@find -name \"*.o\" -delete -o -name -delete\n")
