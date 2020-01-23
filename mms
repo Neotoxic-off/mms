@@ -14,7 +14,7 @@ blue = "\033[34m"
 cyan = "\033[36m"
 grey = "\033[39m"
 
-version = "1.0.2"
+version = "1.1.0"
 
 action = " ~> "
 message = "==> "
@@ -52,19 +52,35 @@ def homemode():
     print(red + message + red + "HOMEMODE" + grey + " has been detected")
     print(red + action + grey + "Generating the Makefile")
     f = open("Makefile", "x")
+
     f.write("##\n## EPITECH PROJECT, " + year + "\n## Generated with mms\n## File description:\n## Makefile\n##\n\n")
-    f.write("SRC	=	" + src + "\n")
-    f.write("NAME	=	" + out + "\n\n")
-    f.write("all: NAME clean\nNAME:\n\n")
-    f.write("	@make -C " + lib + "\n")
-    f.write("	@cp " + lib + "include/* ./include\n")
-    f.write("	@gcc -o $(NAME) $(SRC) " + lib + "*.a -g\n")
-    f.write("clean:\n\n")
+    f.write("NRM		=	\e[0m\nNRED	=	\e[31m\nNGRN	=	\e[32m\nNYEL	=	\e[33m\nNCYN	=	\e[36m\nBRED	=	\e[1;31m\nBGRN	=	\e[1;32m\nBYEL	=	\e[1;33m\nBCYN	=	\e[1;36m\n\n## CONFIGURATION\n\nSRC		=	" + src + "\n" + "BIN		=	" + out + "\n" + "CMP		=	gcc\nFLAGS	=	-g -Wall --extra\nLIB	=	" + lib + "\n")
+    f.write("\nall: NAME clean\n\n")
+
+    f.write("infos:\n")
+    f.write("	@echo \"$(NRM)Source..........: $(BCYN) $(SRC) $(NRM)\"\n")
+    f.write("	@echo \"$(NRM)Binary..........: $(BCYN) $(BIN) $(NRM)\"\n")
+    f.write("	@echo \"$(NRM)Lib.............: $(BCYN) $(LIB) $(NRM)\"\n")
+    f.write("	@echo \"$(NRM)Compiler........: $(BCYN) $(CMP) $(NRM)\"\n")
+    f.write("	@echo \"$(NRM)Flags...........: $(BCYN) $(FLAGS) $(NRM)\"\n")
+    f.write("NAME: infos\n")
+    f.write("	@echo \"$(NRM)Status..........: $(BGRN) Compiling $(NRM)\"\n")
+    f.write("	@echo \"$(NRM)Status..........: $(BYEL) Starting logs $(NRM)\"\n")
+    f.write("	@make -C $(LIB)\n")
+    f.write("	@cp $(LIB)/include/* ./include\n")
+    f.write("	@$(CMP) -o $(BIN) $(SRC) -L $(LIB)/*.a $(FLAGS)\n")
+    f.write("	@echo \"$(NRM)Status..........: $(BYEL) Logs ended $(NRM)\"\n")
+    f.write("	@if [ -e \"$(BIN)\" ]; then echo \"$(NRM)Status..........: $(BGRN) Compiled $(NRM)\"; else echo \"$(NRM)Status..........: $(BRED) Failed $(NRM)\"; fi\n")
+    f.write("clean:\n")
+    f.write("	@echo \"$(NRM)Status..........: $(BGRN) Cleanning $(NRM)\"\n")
     f.write("	@find -name \"*.o\" -delete -o -name -delete\n")
-    f.write("fclean: clean\n\n")
-    f.write("	@rm -f $(NAME)\n\n")
+    f.write("	@echo \"$(NRM)Status..........: $(BGRN) Cleanned $(NRM)\"\n")
+    f.write("fclean:\n")
+    f.write("	@echo \"$(NRM)Status..........: $(BGRN) Cleanning $(NRM)\"\n")
+    f.write("	@rm -f $(BIN)\n")
     f.write("	@find -name \"*.a\" -delete -o -name -delete\n")
-    f.write("re: fclean all\n\n")
+    f.write("	@echo \"$(NRM)Status..........: $(BGRN) Cleanned $(NRM)\"\n")
+    f.write("re: fclean all\n")
     f.close()
 
 def libmode():
