@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+# Author Neo
+# Official repository:
+# https://github.com/Neotoxic-off/mms/
 
 import os
 import sys
@@ -10,6 +13,8 @@ yellow = "\033[33m"
 blue = "\033[34m"
 cyan = "\033[36m"
 grey = "\033[39m"
+
+version = "1.0.2"
 
 action = " ~> "
 message = "==> "
