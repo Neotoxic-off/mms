@@ -19,7 +19,12 @@ install(){
         if [[ $update == "y" ]]; then
             sudo rm /usr/bin/mms
             sudo chmod +x mms && sudo cp mms /usr/bin/
-            install
+            if [[ -f "/usr/bin/mms" ]]; then
+                printf "Status..........: Installed\n"
+                printf "Path..........: /usr/bin/mms\n"
+            else
+                printf "Status..........: Not installed\n"
+            fi
         fi
     fi
     }
