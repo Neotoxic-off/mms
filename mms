@@ -58,6 +58,7 @@ def homemode():
     f.write("	@find -name \"*.o\" -delete -o -name -delete\n")
     f.write("fclean: clean\n\n")
     f.write("	@rm -f $(NAME)\n\n")
+    f.write("	@find -name \"*.a\" -delete -o -name -delete\n")
     f.write("re: fclean all\n\n")
     f.close()
 
