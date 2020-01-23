@@ -68,7 +68,7 @@ def homemode():
     f.write("	@echo \"$(NRM)Status..........: $(BYEL) Starting logs $(NRM)\"\n")
     f.write("	@make -C $(LIB)\n")
     f.write("	@cp $(LIB)/include/* ./include\n")
-    f.write("	@$(CMP) -o $(BIN) $(SRC) -L $(LIB)/*.a $(FLAGS)\n")
+    f.write("	@$(CMP) -o $(BIN) $(SRC) $(LIB)/*.a $(FLAGS)\n")
     f.write("	@echo \"$(NRM)Status..........: $(BYEL) Logs ended $(NRM)\"\n")
     f.write("	@if [ -e \"$(BIN)\" ]; then echo \"$(NRM)Status..........: $(BGRN) Compiled $(NRM)\"; else echo \"$(NRM)Status..........: $(BRED) Failed $(NRM)\"; fi\n")
     f.write("clean:\n")
