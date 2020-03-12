@@ -40,7 +40,7 @@ H Path:		 Path of the .h file
 ./mms [-root / -lib]
 ```
 
-## Makefile generated:
+## Makefile Root Generated:
 ```
 ##
 ## EPITECH PROJECT, 2020
@@ -80,6 +80,52 @@ clean:
 
 fclean:
 	@$(MAKE) fclean -C $(LIBPATH) --no-print-directory
+	@$(RM) $(OBJS)
+	@rm -f $(NAME)
+	@echo "\e[32m[OK]\033[0m Cleanned"
+
+re:	fclean all
+
+.c.o:	%.c
+	@$(CC) -c $< -o $@ $(CFLAGS) && echo "\e[32m[OK]\033[0m" $< || echo "\e[91;5m[KO]\e[25m" $< "\033[0m"
+
+.PHONY: all clean fclean re
+
+```
+
+## Makefile lib Generated
+```
+##
+## EPITECH PROJECT, 2020
+## Makefile
+## File description:
+## Makefile
+##
+
+OBJS	=	$(patsubst %.c, %.o, $(wildcard *.c))
+
+NAME 	=	libmy.a
+
+CFLAGS	=	-I .
+CFLAGS	+=	-g3
+CFLAGS	+=	-Wall -Wextra
+
+CC		=	@gcc
+AR		=	@ar rc
+RM		=	@rm -f
+
+all:	$(NAME)
+
+$(NAME):	$(OBJS)
+	@$(AR) $(NAME) $(OBJS)
+
+$(OBJS): my.h
+
+clean:
+	@$(RM) $(OBJS)
+	@echo "\e[32m[OK]\033[0m Cleanned"
+
+fclean:
 	@$(RM) $(OBJS)
 	@rm -f $(NAME)
 	@echo "\e[32m[OK]\033[0m Cleanned"
