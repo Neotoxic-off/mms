@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # Author Neo
 # Official repository:
 # https://github.com/Neotoxic-off/mms/
@@ -6,140 +6,132 @@
 import os
 import sys
 
-black = "\033[30m"
-red = "\033[31m"
-green = "\033[32m"
-yellow = "\033[33m"
-blue = "\033[34m"
-cyan = "\033[36m"
-grey = "\033[39m"
+version = "2.0.1"
 
-version = "1.1.0"
-
-action = " ~> "
+action  = " ~> "
 message = "==> "
-
-year = "2019"
-
-def checker():
-    print(yellow + message + grey + "Checking folders")
-    if os.path.exists("include"):
-        print(yellow + message + grey + "Include folder found")
-    else:
-        print(yellow + message + grey + "Include folder not found")
-        print(red + action + grey + "Generating folder")
-        os.mkdir("include")
+read    = "  >  "
+year = "2020"
 
 def helpme():
-    print("\tUsage:")
-    print("\t\tHOMEMODE ==> mms <Source.c> <Output> <Lib_Path>")
-    print("\t\tLIBMODE  ==> mms <Lib_Path> <Lib_name>")
+    print(message, "Binary Name")
+    print("     Name of the output")
+    print(message, "Library Name")
+    print("     Name of the lib to compile for the program")
+    print(message, "Library Path")
+    print("     Path of the lib to compile for the program")
+    print(message, "H Path")
+    print("     Path of the .h file")
 
-def homemode():
-    src = sys.argv[1]
-    out = sys.argv[2]
-    lib = sys.argv[3]
-    liblen = len(lib)
+def config_root():
+    binary  = "binary"
+    libname = "libmy.a"
+    libpath = "./lib/my/"
+    hfile   = "./include/my.h"
+    root(binary, libname, libpath, hfile)
 
-    if lib[liblen - 1] != '/':
-        lib = lib + '/'
-
-    print(yellow + message + grey + "Checking files")
+def root(binary, libname, libpath, hfile):
     if os.path.exists("Makefile"):
-        print(red + action + grey + "Removing previous Makefile")
         os.remove("Makefile")
+    f = open("Makefile", "x")
+    f.write("##\n## EPITECH PROJECT, " + year + "\n## Makefile\n## File description:\n## Makefile\n##\n\n")
 
-    print(red + message + red + "HOMEMODE" + grey + " has been detected")
-    print(red + action + grey + "Generating the Makefile")
+    f.write("OBJS\t=\t$(patsubst %.c, %.o, $(wildcard ./src/*.c))\n\n")
+
+    f.write("LIBNAME\t=\t" + libname + "\n")
+    f.write("LIBPATH\t=\t" + libpath + "\n\n")
+
+    f.write("HFILE\t=\t" + hfile + "\n\n")
+
+    f.write("NAME\t=\t" + binary + "\n\n")
+
+    f.write("CFLAGS\t=\t-I ./include\n")
+    f.write("CFLAGS\t+=\t-g3\n")
+    f.write("CFLAGS\t+=\t-Wall -Wextra\n\n")
+
+    f.write("CC\t=\t@gcc\n")
+    f.write("RM\t=\t@rm -f\n\n")
+
+    f.write("all:\t$(NAME)\n\n")
+
+    f.write("$(NAME):\t$(OBJS)\n")
+    f.write("\t@$(MAKE) -C $(LIBPATH) --no-print-directory\n")
+    f.write("\t$(CC) -o $(NAME) $(OBJS)\n\n")
+
+    f.write("$(OBJS): $(HFILE)\n\n")
+
+    f.write("clean:\n")
+    f.write("\t@$(MAKE) clean -C $(LIBPATH) --no-print-directory\n")
+    f.write("\t@$(RM) $(OBJS)\n")
+    f.write("\t@echo \"\e[32m[OK]\\033[0m Cleanned\"\n\n")
+
+    f.write("fclean:\n")
+    f.write("\t@$(MAKE) fclean -C $(LIBPATH) --no-print-directory\n")
+    f.write("\t@$(RM) $(OBJS)\n")
+    f.write("\t@rm -f $(NAME)\n")
+    f.write("\t@echo \"\e[32m[OK]\\033[0m Cleanned\"\n\n")
+
+    f.write("re:\tfclean all\n\n")
+
+    f.write(".c.o:\t%.c\n")
+    f.write("\t@$(CC) -c $< -o $@ $(CFLAGS) && echo \"\e[32m[OK]\\033[0m\" $< || echo \"\e[91;5m[KO]\e[25m\" $< \"\\033[0m\"\n\n")
+
+    f.write(".PHONY: all clean fclean re\n")
+
+def config_lib():
+    name  = "libmy.a"
+    lib(name)
+
+def lib(name):
+    if os.path.exists("Makefile"):
+        os.remove("Makefile")
     f = open("Makefile", "x")
 
-    f.write("##\n## EPITECH PROJECT, " + year + "\n## Generated with mms\n## File description:\n## Makefile\n##\n\n")
-    f.write("NRM		=	\e[0m\nNRED	=	\e[31m\nNGRN	=	\e[32m\nNYEL	=	\e[33m\nNCYN	=	\e[36m\nBRED	=	\e[1;31m\nBGRN	=	\e[1;32m\nBYEL	=	\e[1;33m\nBCYN	=	\e[1;36m\n\n## CONFIGURATION\n\nSRC		=	" + src + "\n" + "BIN		=	" + out + "\n" + "CMP		=	gcc\nFLAGS	=	-g -Wall --extra\nLIB	=	" + lib + "\n")
-    f.write("\nall: NAME clean\n\n")
+    f.write("##\n## EPITECH PROJECT, " + year + "\n## Makefile\n## File description:\n## Makefile\n##\n\n")
 
-    f.write("infos:\n")
-    f.write("	@echo \"$(NRM)Source..........: $(BCYN) $(SRC) $(NRM)\"\n")
-    f.write("	@echo \"$(NRM)Binary..........: $(BCYN) $(BIN) $(NRM)\"\n")
-    f.write("	@echo \"$(NRM)Lib.............: $(BCYN) $(LIB) $(NRM)\"\n")
-    f.write("	@echo \"$(NRM)Compiler........: $(BCYN) $(CMP) $(NRM)\"\n")
-    f.write("	@echo \"$(NRM)Flags...........: $(BCYN) $(FLAGS) $(NRM)\"\n")
-    f.write("NAME: infos\n")
-    f.write("	@echo \"$(NRM)Status..........: $(BGRN) Compiling $(NRM)\"\n")
-    f.write("	@echo \"$(NRM)Status..........: $(BYEL) Starting logs $(NRM)\"\n")
-    f.write("	@make -C $(LIB)\n")
-    f.write("	@cp $(LIB)/include/* ./include\n")
-    f.write("	@$(CMP) -o $(BIN) $(SRC) $(LIB)/*.a $(FLAGS)\n")
-    f.write("	@echo \"$(NRM)Status..........: $(BYEL) Logs ended $(NRM)\"\n")
-    f.write("	@if [ -e \"$(BIN)\" ]; then echo \"$(NRM)Status..........: $(BGRN) Compiled $(NRM)\"; else echo \"$(NRM)Status..........: $(BRED) Failed $(NRM)\"; fi\n")
+    f.write("OBJS\t=\t$(patsubst %.c, %.o, $(wildcard *.c))\n\n")
+
+    f.write("NAME \t=\t" + name + "\n\n")
+
+    f.write("CFLAGS\t=\t-I .\n")
+    f.write("CFLAGS\t+=\t-g3\n")
+    f.write("CFLAGS\t+=\t-Wall -Wextra\n\n")
+
+    f.write("CC\t\t=\t@gcc\n")
+    f.write("AR\t\t=\t@ar rc\n")
+    f.write("RM\t\t=\t@rm -f\n\n")
+
+    f.write("all:\t$(NAME)\n\n")
+
+    f.write("$(NAME):\t$(OBJS)\n")
+    f.write("\t@$(AR) $(NAME) $(OBJS)\n\n")
+
+    f.write("$(OBJS): my.h\n\n")
+
     f.write("clean:\n")
-    f.write("	@echo \"$(NRM)Status..........: $(BGRN) Cleanning $(NRM)\"\n")
-    f.write("	@find -name \"*.o\" -delete -o -name -delete\n")
-    f.write("	@echo \"$(NRM)Status..........: $(BGRN) Cleanned $(NRM)\"\n")
+    f.write("\t@$(RM) $(OBJS)\n")
+    f.write("\t@echo \"\e[32m[OK]\033[0m Cleanned\"\n\n")
+
     f.write("fclean:\n")
-    f.write("	@echo \"$(NRM)Status..........: $(BGRN) Cleanning $(NRM)\"\n")
-    f.write("	@rm -f $(BIN)\n")
-    f.write("	@find -name \"*.a\" -delete -o -name -delete\n")
-    f.write("	@echo \"$(NRM)Status..........: $(BGRN) Cleanned $(NRM)\"\n")
-    f.write("re: fclean all\n")
-    f.close()
+    f.write("\t@$(RM) $(OBJS)\n")
+    f.write("\t@rm -f $(NAME)\n")
+    f.write("\t@echo \"\e[32m[OK]\033[0m Cleanned\"\n\n")
 
-def libmode():
-    lib = sys.argv[1]
-    libname = sys.argv[2]
-    liblen = len(lib)
+    f.write("re:\tfclean all\n\n")
 
-    if lib[liblen - 1] != '/':
-        lib = lib + '/'
+    f.write(".c.o:\t%.c\n")
+    f.write("\t@$(CC) -c $< -o $@ $(CFLAGS) && echo \"\e[32m[OK]\033[0m\" $< || echo \"\e[91;5m[KO]\e[25m\" $< \"\033[0m\"\n\n")
 
-    print(yellow + message + grey + "Checking files")
-    if os.path.exists(lib + "Makefile"):
-        print(red + action + grey + "Removing previous Makefile")
-        os.remove(lib + "Makefile")
-    if os.path.exists(lib + "include"):
-        print(yellow + message + grey + "Include folder found")
-    else:
-        print(yellow + message + grey + "Include folder not found")
-        print(red + action + grey + "Generating folder")
-        os.mkdir(lib + "include")
+    f.write(".PHONY: all clean fclean re\n")
 
-    print(yellow + message + red + "LIBMODE" + grey + " has been detected")
-    print(red + action + grey + "Generating the Makefile")
-    f = open(lib + "Makefile", "x")
-    f.write("##\n## EPITECH PROJECT, " + year + "\n## Generated with mms\n## File description:\n## Makefile\n##\n\n")
-    f.write("SRC	= *.c\n")
-    f.write("all: build\n")
-    f.write("	@echo \"\e[39m[\e[33m  ####  \e[39m]\e[33m Copying the lib\e[39m\"\n")
-    f.write("	@cp *.a ./include/\n")
-    f.write("	@cp *.h ./include/\n")
-    f.write("build:\n")
-    f.write("	@echo \"\e[39m[\e[33m  ####  \e[39m]\e[33m building\"\n")
-    f.write("	@gcc -c $(SRC) -g -I ./include/\n")
-    f.write("	@ar rc " + libname + ".a " + " *.o\n")
-    f.write("clean:\n")
-    f.write("	@echo \"\e[39m[\e[33m  ####  \e[39m]\e[33m cleanning *.o\e[39m\"\n")
-    f.write("	@find -name \"*.o\" -delete -o -name -delete")
-    f.close()
-
-def mms():
-    print(yellow + action + grey + "Starting mms ...\n")
-
-    if len(sys.argv) == 2 and sys.argv[1] == "-h":
+if len(sys.argv) > 1:
+    if sys.argv[1] == "-h":
         helpme()
-        exit(0)
+    elif sys.argv[1] == "-root":
+        config_root()
+    elif sys.argv[1] == "-lib":
+        config_lib()
     else:
-        checker()
-        if len(sys.argv) == 4:
-            homemode()
-            if os.path.exists("Makefile"):
-                print(yellow + message + grey + "Makefile successfully generated")
-            else:
-                print(yellow + message + grey + "Unknown error can't find the Makefile")
-        elif len(sys.argv) == 3:
-            libmode()
-            if os.path.exists("Makefile"):
-                print(yellow + message + grey + "Makefile successfully generated")
-            else:
-                print(yellow + message + grey + "Unknown error can't find the Makefile")
-        else:
-            print(red + message + grey + "Missing argument ...")
-mms()
+        print("Mod undetected\nUsage: ./mms [-root / -lib]")
+else:
+        print("Mod undetected\nUsage: ./mms [-root / -lib]")
