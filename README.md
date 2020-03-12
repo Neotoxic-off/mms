@@ -9,6 +9,11 @@ chmod +x install.sh
 ./install.sh
 ```
 
+### Usage
+```
+./mms [-root / -lib]
+```
+
 ### HELP
 ```
 Library Name:	 Name of the lib to compile for the program
@@ -33,11 +38,6 @@ H Path:		 Path of the .h file
 	├── Binary
 	└── Makefile
 
-```
-
-### Usage
-```
-./mms [-root / -lib]
 ```
 
 ## Makefile Root Generated:
