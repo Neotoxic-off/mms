@@ -11,71 +11,59 @@ chmod +x install.sh
 
 ### Usage
 ```
-Autotmatic mode detection
-HOMEMODE ==> mms <Source.c> <Output> <Lib_Path>
-LIBMODE  ==> mms <Lib_Path> <Lib_name>
+./mms [-root / -lib]
 ```
-
-<img src="https://raw.githubusercontent.com/Neotoxic-off/mms/master/pics/homemode.png">
-# Homemode: Use it to generate a makefile on the root folder
-
-<img src="https://raw.githubusercontent.com/Neotoxic-off/mms/master/pics/libmode.png">
-# Libmode: Use it to generate a makefile for your lib
-
 
 ## Makefile generated:
 ```
 ##
-## EPITECH PROJECT, 2019
-## Generated with mms
+## EPITECH PROJECT, 2020
+## Makefile
 ## File description:
 ## Makefile
 ##
 
-NRM		=	\e[0m
-NRED	=	\e[31m
-NGRN	=	\e[32m
-NYEL	=	\e[33m
-NCYN	=	\e[36m
-BRED	=	\e[1;31m
-BGRN	=	\e[1;32m
-BYEL	=	\e[1;33m
-BCYN	=	\e[1;36m
+OBJS	=	$(patsubst %.c, %.o, $(wildcard ./src/*.c))
 
-## CONFIGURATION
+LIBNAME	=	libmy.a
+LIBPATH	=	./lib/my/
 
-SRC		=	src.c
-BIN		=	bin
-CMP		=	gcc
-FLAGS	=	-g -Wall --extra
-LIB	=	lib/
+HFILE	=	./include/my.h
 
-all: NAME clean
+NAME	=	binary
 
-infos:
-	@echo "$(NRM)Source..........: $(BCYN) $(SRC) $(NRM)"
-	@echo "$(NRM)Binary..........: $(BCYN) $(BIN) $(NRM)"
-	@echo "$(NRM)Lib.............: $(BCYN) $(LIB) $(NRM)"
-	@echo "$(NRM)Compiler........: $(BCYN) $(CMP) $(NRM)"
-	@echo "$(NRM)Flags...........: $(BCYN) $(FLAGS) $(NRM)"
-NAME: infos
-	@echo "$(NRM)Status..........: $(BGRN) Compiling $(NRM)"
-	@echo "$(NRM)Status..........: $(BYEL) Starting logs $(NRM)"
-	@make -C $(LIB)
-	@cp $(LIB)/include/* ./include
-	@$(CMP) -o $(BIN) $(SRC) $(LIB)/*.a $(FLAGS)
-	@echo "$(NRM)Status..........: $(BYEL) Logs ended $(NRM)"
-	@if [ -e "$(BIN)" ]; then echo "$(NRM)Status..........: $(BGRN) Compiled $(NRM)"; else echo "$(NRM)Status..........: $(BRED) Failed $(NRM)"; fi
+CFLAGS	=	-I ./include
+CFLAGS	+=	-g3
+CFLAGS	+=	-Wall -Wextra
+
+CC	=	@gcc
+RM	=	@rm -f
+
+all:	$(NAME)
+
+$(NAME):	$(OBJS)
+	@$(MAKE) -C $(LIBPATH) --no-print-directory
+	$(CC) -o $(NAME) $(OBJS)
+
+$(OBJS): $(HFILE)
+
 clean:
-	@echo "$(NRM)Status..........: $(BGRN) Cleanning $(NRM)"
-	@find -name "*.o" -delete -o -name -delete
-	@echo "$(NRM)Status..........: $(BGRN) Cleanned $(NRM)"
+	@$(MAKE) clean -C $(LIBPATH) --no-print-directory
+	@$(RM) $(OBJS)
+	@echo "\e[32m[OK]\033[0m Cleanned"
+
 fclean:
-	@echo "$(NRM)Status..........: $(BGRN) Cleanning $(NRM)"
-	@rm -f $(BIN)
-	@find -name "*.a" -delete -o -name -delete
-	@echo "$(NRM)Status..........: $(BGRN) Cleanned $(NRM)"
-re: fclean all
+	@$(MAKE) fclean -C $(LIBPATH) --no-print-directory
+	@$(RM) $(OBJS)
+	@rm -f $(NAME)
+	@echo "\e[32m[OK]\033[0m Cleanned"
+
+re:	fclean all
+
+.c.o:	%.c
+	@$(CC) -c $< -o $@ $(CFLAGS) && echo "\e[32m[OK]\033[0m" $< || echo "\e[91;5m[KO]\e[25m" $< "\033[0m"
+
+.PHONY: all clean fclean re
 
 ```
 
