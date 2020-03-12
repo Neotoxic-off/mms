@@ -6,7 +6,7 @@
 import os
 import sys
 
-version = "2.0.1"
+version = "2.0.2"
 
 action  = " ~> "
 message = "==> "
@@ -14,14 +14,26 @@ read    = "  >  "
 year = "2020"
 
 def helpme():
-    print(message, "Binary Name")
-    print("     Name of the output")
-    print(message, "Library Name")
-    print("     Name of the lib to compile for the program")
-    print(message, "Library Path")
-    print("     Path of the lib to compile for the program")
-    print(message, "H Path")
-    print("     Path of the .h file")
+    print("\033[4mLibrary Name:\t\033[0m Name of the lib to compile for the program")
+    print("\033[4mLibrary Path:\t\033[0m Path of the lib to compile for the program")
+    print("\033[4mBinary Name:\t\033[0m Name of the output")
+    print("\033[4mH Path:\t\t\033[0m Path of the .h file\n\n")
+    print("\t┌────\033[1;36m include\033[0m")
+    print("\t│     └── my.h")
+    print("\t├────\033[1;36m lib\033[0m")
+    print("\t│     └──\033[1;36m my\033[0m")
+    print("\t│         ├── libmy.a")
+    print("\t│         ├── Makefile")
+    print("\t│         ├── my_putchar.c")
+    print("\t│         ├── my_putstr.c")
+    print("\t│         └── my_strlen.c")
+    print("\t├────\033[1;36m src\033[0m")
+    print("\t│     ├── init.c")
+    print("\t│     ├── display.c")
+    print("\t│     └── main.c")
+    print("\t├── Binary")
+    print("\t└── Makefile\n")
+
 
 def config_root():
     binary  = "binary"
