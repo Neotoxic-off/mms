@@ -9,6 +9,32 @@ chmod +x install.sh
 ./install.sh
 ```
 
+### HELP
+```
+Library Name:	 Name of the lib to compile for the program
+Library Path:	 Path of the lib to compile for the program
+Binary Name:	 Name of the output
+H Path:		 Path of the .h file
+
+
+	┌──── include
+	│     └── my.h
+	├──── lib
+	│     └── my
+	│         ├── libmy.a
+	│         ├── Makefile
+	│         ├── my_putchar.c
+	│         ├── my_putstr.c
+	│         └── my_strlen.c
+	├──── src
+	│     ├── init.c
+	│     ├── display.c
+	│     └── main.c
+	├── Binary
+	└── Makefile
+
+```
+
 ### Usage
 ```
 ./mms [-root / -lib]
