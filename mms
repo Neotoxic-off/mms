@@ -110,17 +110,17 @@ def lib(name):
 
     f.write("clean:\n")
     f.write("\t@$(RM) $(OBJS)\n")
-    f.write("\t@echo \"\e[32m[OK]\033[0m Cleanned\"\n\n")
+    f.write("\t@echo \"\e[32m[OK]\\033[0m Cleanned\"\n\n")
 
     f.write("fclean:\n")
     f.write("\t@$(RM) $(OBJS)\n")
     f.write("\t@rm -f $(NAME)\n")
-    f.write("\t@echo \"\e[32m[OK]\033[0m Cleanned\"\n\n")
+    f.write("\t@echo \"\e[32m[OK]\\033[0m Cleanned\"\n\n")
 
     f.write("re:\tfclean all\n\n")
 
     f.write(".c.o:\t%.c\n")
-    f.write("\t@$(CC) -c $< -o $@ $(CFLAGS) && echo \"\e[32m[OK]\033[0m\" $< || echo \"\e[91;5m[KO]\e[25m\" $< \"\033[0m\"\n\n")
+    f.write("\t@$(CC) -c $< -o $@ $(CFLAGS) && echo \"\e[32m[OK]\\033[0m\" $< || echo \"\e[91;5m[KO]\e[25m\" $< \"\\033[0m\"\n\n")
 
     f.write(".PHONY: all clean fclean re\n")
 
