@@ -30,7 +30,7 @@ H Path:		 Path of the .h file
 	│         ├── Makefile
 	│         ├── my_putchar.c
 	│         ├── my_putstr.c
-	│         └── my_strlen.c
+	│         └── my.h
 	├──── src
 	│     ├── init.c
 	│     ├── display.c
