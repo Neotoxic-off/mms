@@ -68,7 +68,7 @@ def root(binary, libname, libpath, hfile):
 
     f.write("$(NAME):\t$(OBJS)\n")
     f.write("\t@$(MAKE) -C $(LIBPATH) --no-print-directory\n")
-    f.write("\t$(CC) -o $(NAME) $(OBJS)\n\n")
+    f.write("\t$(CC) -o $(NAME) $(OBJS) $(LIBPATH)$(LIBNAME)\n\n")
 
     f.write("$(OBJS): $(HFILE)\n\n")
 
