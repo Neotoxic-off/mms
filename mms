@@ -59,7 +59,7 @@ def root(binary, libname, libpath, hfile):
 
     f.write("CFLAGS\t=\t-I ./include\n")
     f.write("CFLAGS\t+=\t-g3\n")
-    f.write("CFLAGS\t+=\t-Wall -Wextra\n\n")
+    f.write("CFLAGS\t+=\t-Wall -Wextra -O3 -fno-builtin\n\n")
 
     f.write("CC\t=\t@gcc\n")
     f.write("RM\t=\t@rm -f\n\n")
@@ -107,7 +107,7 @@ def lib(name):
 
     f.write("CFLAGS\t=\t-I .\n")
     f.write("CFLAGS\t+=\t-g3\n")
-    f.write("CFLAGS\t+=\t-Wall -Wextra\n\n")
+    f.write("CFLAGS\t+=\t-Wall -Wextra -O3 -fno-builtin\n\n")
 
     f.write("CC\t\t=\t@gcc\n")
     f.write("AR\t\t=\t@ar rc\n")
