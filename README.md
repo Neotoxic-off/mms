@@ -23,7 +23,7 @@ H Path:		 Path of the .h file
 
 
 	┌──── include
-	│     └── my.h
+	│     └── main.h
 	├──── lib
 	│     └── my
 	│         ├── libmy.a
