@@ -41,7 +41,7 @@ H Path:		 Path of the .h file
 ```
 
 ## Makefile Root Generated:
-```
+```MAKEFILE
 ##
 ## EPITECH PROJECT, 2020
 ## Makefile
@@ -94,7 +94,7 @@ re:	fclean all
 ```
 
 ## Makefile lib Generated
-```
+```MAKEFILE
 ##
 ## EPITECH PROJECT, 2020
 ## Makefile
